@@ -1,2 +1,2 @@
-package med.voll.api.endereco;public record Endereco() {
+package med.voll.api.endereco;public class Endereco {
 }
