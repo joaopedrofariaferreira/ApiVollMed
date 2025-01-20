@@ -7,12 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.endereco.Endereco;
 
-@Getter
+//@Getter
 @EqualsAndHashCode(of = "id")
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Paciente")
-@Table(name = "pacientes")
+@Table(name = "paciente")
 public class Paciente {
 
     @Id
@@ -34,5 +34,32 @@ public class Paciente {
         this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.endereco());
     }
+//-------------------------------------------------------------------------------------------------------------
+    public Paciente(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
 }
