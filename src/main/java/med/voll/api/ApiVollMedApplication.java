@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApiVollMedApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApiVollMedApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ApiVollMedApplication.class, args);
+    }
 
 }
