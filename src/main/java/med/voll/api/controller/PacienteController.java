@@ -2,15 +2,15 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.paciente.DadosListagemPaciente;
-import med.voll.api.paciente.PacienteDTO;
-import med.voll.api.paciente.Paciente;
-import med.voll.api.paciente.PacienteRepository;
+import med.voll.api.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("pacientes")
@@ -19,10 +19,21 @@ public class PacienteController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    @PostMapping
+    /*@PostMapping
     @Transactional
     public void cadastrar(@RequestBody @Valid PacienteDTO pacienteDTO) {
         pacienteRepository.save(new Paciente(pacienteDTO));
+    }*/
+    @PostMapping
+    @Transactional
+    public void cadastrar(@RequestBody @Valid List<PacienteDTO> pacienteDTOs) {
+        // Converte a lista de PacienteDTO para uma lista de Paciente
+        List<Paciente> pacientes = pacienteDTOs.stream()
+                .map(Paciente::new) // Mapeia de PacienteDTO para Paciente
+                .collect(Collectors.toList());
+
+        // Salva todos os pacientes no banco de dados
+        pacienteRepository.saveAll(pacientes);
     }
 
     @GetMapping
@@ -32,10 +43,15 @@ public class PacienteController {
 
     @PutMapping
     @Transactional
-    public void atualizaPaciente(@RequestBody @Valid PacienteDTO pacienteDTO) {
-        var paciente = pacienteRepository.getReferenceById(pacienteDTO.)
+    public void atualizaPaciente(@RequestBody @Valid AtualizaPacienteDTO  atualizaPacienteDTO) {
+        var paciente = pacienteRepository.getReferenceById(atualizaPacienteDTO.id());
+        paciente.atualizarInformacoes(atualizaPacienteDTO);
     }
-    //vou no banco de dados, acesso o paciente especifico pelo id dele
-    //trago e entao realizo a mudança dos campos especificos
-    //preciso de um DTO especifico para pacientes com as informaçoe spossiveis de mudança
+
+   @DeleteMapping("{/id}")
+   @Transactional
+   public void excluirPaciente(@PathVariable Long id) {
+        pacienteRepository.deleteById(id);
+   }
+
 }
