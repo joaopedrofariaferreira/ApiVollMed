@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,9 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastrarMedico(@RequestBody @Valid MedicoDTO medicoDTO){
+    public ResponseEntity cadastrarMedico(@RequestBody @Valid MedicoDTO medicoDTO){
         repository.save(new Medico(medicoDTO));
+        return ResponseEntity.status(201).build();
     }
 
     @GetMapping
@@ -31,16 +33,19 @@ public class MedicoController {
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid AtualizacaoMedicoDTO atualizacaoMedicoDTO){
+    public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoMedicoDTO atualizacaoMedicoDTO){
         var medico = repository.getReferenceById(atualizacaoMedicoDTO.id());
         medico.atualizarInformacoes(atualizacaoMedicoDTO);
+        return ResponseEntity.status(200).build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deletarMedico(@PathVariable Long id){
+    public ResponseEntity deletarMedico(@PathVariable Long id){
         var medico = repository.getReferenceById(id);
         medico.excluir();
+
+        return ResponseEntity.status(200).build();
     }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class PacienteController {
     }*/
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid List<PacienteDTO> pacienteDTOs) {
+    public ResponseEntity cadastrar(@RequestBody @Valid List<PacienteDTO> pacienteDTOs) {
         // Converte a lista de PacienteDTO para uma lista de Paciente
         List<Paciente> pacientes = pacienteDTOs.stream()
                 .map(Paciente::new) // Mapeia de PacienteDTO para Paciente
@@ -34,6 +35,7 @@ public class PacienteController {
 
         // Salva todos os pacientes no banco de dados
         pacienteRepository.saveAll(pacientes);
+        return ResponseEntity.status(201).build();
     }
 
     @GetMapping
@@ -43,15 +45,18 @@ public class PacienteController {
 
     @PutMapping
     @Transactional
-    public void atualizaPaciente(@RequestBody @Valid AtualizaPacienteDTO  atualizaPacienteDTO) {
+    public ResponseEntity atualizaPaciente(@RequestBody @Valid AtualizaPacienteDTO  atualizaPacienteDTO) {
         var paciente = pacienteRepository.getReferenceById(atualizaPacienteDTO.id());
         paciente.atualizarInformacoes(atualizaPacienteDTO);
+        return ResponseEntity.status(200).build();
     }
 
    @DeleteMapping("{/id}")
    @Transactional
-   public void excluirPaciente(@PathVariable Long id) {
-        pacienteRepository.deleteById(id);
+   public ResponseEntity excluirPaciente(@PathVariable Long id) {
+
+       pacienteRepository.deleteById(id);
+       return ResponseEntity.status(201).build();
    }
 
 }
