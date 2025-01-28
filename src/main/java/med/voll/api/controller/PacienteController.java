@@ -48,7 +48,7 @@ public class PacienteController {
         paciente.atualizarInformacoes(atualizaPacienteDTO);
     }
 
-   @DeleteMapping("{/id}")
+   @DeleteMapping("{id}")
    @Transactional
    public void excluirPaciente(@PathVariable Long id) {
         pacienteRepository.deleteById(id);

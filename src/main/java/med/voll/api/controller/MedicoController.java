@@ -36,7 +36,7 @@ public class MedicoController {
         medico.atualizarInformacoes(atualizacaoMedicoDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     @Transactional
     public void deletarMedico(@PathVariable Long id){
         var medico = repository.getReferenceById(id);
