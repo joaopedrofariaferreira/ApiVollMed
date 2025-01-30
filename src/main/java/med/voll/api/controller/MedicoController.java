@@ -27,8 +27,9 @@ public class MedicoController {
     }
 
     @GetMapping
-    public Page<DadosListagemMedico> listarMedicos( @PageableDefault(size = 10, sort = {"nome"}) Pageable pageable) {
-        return repository.findAll(pageable).map(DadosListagemMedico::new);
+    public ResponseEntity<Page<DadosListagemMedico>> listarMedicos( @PageableDefault(size = 10, sort = {"nome"}) Pageable pageable) {
+        var page =  repository.findAll(pageable).map(DadosListagemMedico::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
@@ -48,4 +49,9 @@ public class MedicoController {
         return ResponseEntity.status(200).build();
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity detalheMedico(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosListagemMedico(medico));
+    }
 }

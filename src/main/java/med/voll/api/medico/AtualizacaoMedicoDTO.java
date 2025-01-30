@@ -5,4 +5,5 @@ import med.voll.api.endereco.DadosEndereco;
 
 public record AtualizacaoMedicoDTO(@NotNull Long id, String nome, String telefone, DadosEndereco endereco) {
 
+
 }

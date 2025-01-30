@@ -20,20 +20,12 @@ public class PacienteController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    /*@PostMapping
-    @Transactional
-    public void cadastrar(@RequestBody @Valid PacienteDTO pacienteDTO) {
-        pacienteRepository.save(new Paciente(pacienteDTO));
-    }*/
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid List<PacienteDTO> pacienteDTOs) {
-        // Converte a lista de PacienteDTO para uma lista de Paciente
         List<Paciente> pacientes = pacienteDTOs.stream()
-                .map(Paciente::new) // Mapeia de PacienteDTO para Paciente
+                .map(Paciente::new)
                 .collect(Collectors.toList());
-
-        // Salva todos os pacientes no banco de dados
         pacienteRepository.saveAll(pacientes);
         return ResponseEntity.status(201).build();
     }
@@ -58,5 +50,7 @@ public class PacienteController {
        pacienteRepository.deleteById(id);
        return ResponseEntity.status(201).build();
    }
+
+
 
 }
