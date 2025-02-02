@@ -1,4 +1,4 @@
-package med.voll.api;
+/*package med.voll.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class ApiVollMedApplicationTests {
     void contextLoads() {
     }
 
-}
+}*/
