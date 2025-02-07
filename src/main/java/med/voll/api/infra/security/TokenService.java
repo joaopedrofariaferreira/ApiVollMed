@@ -17,14 +17,14 @@ public class TokenService {
 
     public String gerarToken(Usuario usuario){
         try {
-             var algoritmo = Algorithm.HMAC256("123456");
+            // var algoritmo = Algorithm.HMAC256("123456");
             return  JWT.create()
                     .withIssuer("API Voll.med")
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
-                    .sign(algoritmo);
+                    .sign(Algorithm.HMAC256("123456"));
         } catch (JWTCreationException exception){
-            throw new RuntimeException("Eroo ao gerar Token",exception);
+            throw new RuntimeException("Erro ao gerar Token",exception);
         }
     }
 
@@ -37,7 +37,7 @@ public class TokenService {
                     .verify(tokenJWT)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            throw new RuntimeException("Eroo ao verificar Token",exception);
+            throw new RuntimeException("Erro ao verificar Token",exception);
         }
     }
 
