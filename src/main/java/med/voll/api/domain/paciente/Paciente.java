@@ -9,7 +9,7 @@ import med.voll.api.domain.endereco.Endereco;
 @EqualsAndHashCode(of = "id")
 //@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Pacientes")
+@Entity(name = "pacientes")
 @Table(name = "Pacientes")
 public class Paciente {
 
