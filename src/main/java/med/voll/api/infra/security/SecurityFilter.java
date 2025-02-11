@@ -27,6 +27,8 @@ import java.io.IOException;
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             System.out.println("Security Filter");
+            System.out.println("Token recebido: " + recuperarToken(request));
+
             var tokenJWT = recuperarToken(request);
             if (tokenJWT != null) {
                 var subject = tokenService.getSubject(tokenJWT);
@@ -44,6 +46,6 @@ import java.io.IOException;
             if(token == null){
                 throw new RuntimeException("Token invalido");
             }
-            return token.replace("Bearer ", "");
+            return token.replace("Bearer ", "").trim();
         }
     }
