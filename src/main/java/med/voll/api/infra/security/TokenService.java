@@ -20,14 +20,14 @@ public class TokenService {
             return  JWT.create()
                     .withIssuer("API Voll.med")
                     .withSubject(usuario.getLogin())
-                    .withExpiresAt(dataExpiracao())
+                    //.withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException exception){
             throw new RuntimeException("Eroo ao gerar Token",exception);
         }
     }
 
-    private Instant dataExpiracao() {
+   /* private Instant dataExpiracao() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
-    }
+    }*/
 }
