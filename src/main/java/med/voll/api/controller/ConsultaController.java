@@ -19,4 +19,5 @@ public class ConsultaController {
         System.out.println(dadosAgendamentoConsulta);
         return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null, null, null));
     }
+
 }
